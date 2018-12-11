@@ -3,6 +3,7 @@ import Button from "@material-ui/core/Button";
 
 class GiveSomeLove extends Component {
   render() {
+    const { addSomeLove } = this.props;
     return (
       <div style={{ display: "flex" }}>
         <Button
@@ -10,6 +11,7 @@ class GiveSomeLove extends Component {
           color="primary"
           style={{ justifyContent: "center" }}
           fullWidth={true}
+          onClick={addSomeLove.bind(this, 0)}
         >
           Give Some Love
         </Button>

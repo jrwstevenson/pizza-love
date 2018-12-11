@@ -5,7 +5,7 @@ export class User extends Component {
   render() {
     return (
       <div>
-        <GiveSomeLove />
+        <GiveSomeLove addSomeLove={this.props.addSomeLove} />
       </div>
     );
   }
