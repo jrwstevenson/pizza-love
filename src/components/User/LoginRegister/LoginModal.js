@@ -3,6 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
 import LoginRegister from "./LoginRegister";
+import { Consumer } from "../../../context";
 
 const styles = theme => ({
   modal: {
@@ -19,10 +20,7 @@ const styles = theme => ({
 
 class LoginModal extends React.Component {
   state = {
-    open: true,
-    email: "state@login.js",
-    password: "123456",
-    name: "Testie"
+    open: false
   };
 
   handleOpen = () => {
@@ -45,27 +43,40 @@ class LoginModal extends React.Component {
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
-    const { authenticate } = this.props;
     return (
-      <React.Fragment>
-        <Button variant="contained" color="secondary" onClick={this.handleOpen}>
-          <span role="img" aria-label="Pizza">
-            🍕😍
-          </span>
-          Show You Love For Pizza!{" "}
-          <span role="img" aria-label="Pizza">
-            🍕😍
-          </span>
-        </Button>
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          open={this.state.open}
-          onClose={this.handleClose}
-        >
-          <LoginRegister authenticate={authenticate} />
-        </Modal>
-      </React.Fragment>
+      <Consumer>
+        {value => {
+          const { authenticate } = this.props;
+          return (
+            <React.Fragment>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={this.handleOpen}
+              >
+                <span role="img" aria-label="Pizza">
+                  🍕😍
+                </span>
+                Show You Love For Pizza!{" "}
+                <span role="img" aria-label="Pizza">
+                  🍕😍
+                </span>
+              </Button>
+              <Modal
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                open={this.state.open}
+                onClose={this.handleClose}
+              >
+                <LoginRegister
+                  authenticate={authenticate}
+                  handleClose={this.handleClose}
+                />
+              </Modal>
+            </React.Fragment>
+          );
+        }}
+      </Consumer>
     );
   }
 }

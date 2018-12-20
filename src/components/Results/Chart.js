@@ -13,6 +13,7 @@ import {
 export default class ResChart extends React.PureComponent {
   render() {
     const chartData = this.props.results;
+    // console.log(chartData);
 
     return (
       <Paper>

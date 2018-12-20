@@ -11,7 +11,7 @@ class GiveSomeLove extends Component {
           color="primary"
           style={{ justifyContent: "center" }}
           fullWidth={true}
-          onClick={addSomeLove.bind(this, 0)}
+          onClick={addSomeLove}
         >
           Give Some Love
         </Button>

@@ -10,8 +10,13 @@ import {
   Tab,
   FormControl,
   Input,
-  InputLabel
+  InputLabel,
+  InputAdornment,
+  IconButton
 } from "@material-ui/core";
+import { Autorenew, Close } from "@material-ui/icons";
+import { Consumer } from "../../../context";
+import { getPizzaName } from "../../../helpers";
 
 const styles = theme => ({
   root: {
@@ -29,11 +34,13 @@ const styles = theme => ({
       flexGrow: 0
     }
   },
+  grow: {
+    flexGrow: 1
+  },
   or: {
     textAlign: "center"
   },
   form: {
-    // display: "flex",
     margin: "20px",
     flexDirection: "column"
   },
@@ -53,147 +60,194 @@ class LoginRegister extends Component {
     super(props);
 
     this.state = {
-      tab: 0
+      tab: 0,
+      email: "state@login.js",
+      password: "123456",
+      name: getPizzaName()
     };
   }
 
+  newPizzaName = () => {
+    this.setState({
+      name: getPizzaName()
+    });
+  };
+
+  onChange = e => this.setState({ [e.target.name]: e.target.value });
+
+  handleSubmit = onSubmit => e => {
+    e.preventDefault();
+    onSubmit(this.state);
+  };
+
   render() {
-    const { classes, authenticate } = this.props;
     return (
-      <div className={classes.root}>
-        <Card className={classes.card}>
-          <AppBar position="static">
-            <Toolbar>
-              <Typography variant="title" align="center" color="inherit">
-                Login/Register
-              </Typography>
-            </Toolbar>
-          </AppBar>
-          <Tabs
-            value={this.state.tab}
-            onChange={this.handleTabChange}
-            indicatorColor="primary"
-            textColor="primary"
-            fullWidth
-          >
-            <Tab label="Login" />
-            <Tab label="Register" />
-          </Tabs>
-          {this.state.tab === 0 && (
+      <Consumer>
+        {value => {
+          const { classes, handleClose } = this.props;
+          return (
             <div className={classes.root}>
-              <form className={classes.form} onSubmit={this.onSubmit}>
-                <FormControl margin="normal" required fullWidth>
-                  <InputLabel htmlFor="email">Email Address</InputLabel>
-                  <Input
-                    id="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                    name="email"
-                    autoComplete="email"
-                    autoFocus
-                  />
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                  <InputLabel htmlFor="password">Password</InputLabel>
-                  <Input
-                    name="password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                  />
-                </FormControl>
-
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                >
-                  Sign in
-                </Button>
-              </form>
-            </div>
-          )}
-          {this.state.tab === 1 && (
-            <div className={classes.root}>
-              <div className={classes.root}>
-                <form
-                  className={classes.form}
-                  onValid={this.enableSubmit}
-                  onInvalid={this.disableSubmit}
-                  onValidSubmit={this.submit}
-                >
-                  <FormControl margin="normal" required fullWidth>
-                    <InputLabel htmlFor="email">Email Address</InputLabel>
-                    <Input
-                      id="email"
-                      value={this.state.email}
-                      onChange={this.onChange}
-                      name="email"
-                      autoComplete="email"
-                      autoFocus
-                    />
-                  </FormControl>
-                  <FormControl margin="normal" fullWidth>
-                    <InputLabel htmlFor="name">User Name</InputLabel>
-                    <Input
-                      id="name"
-                      value={this.state.name}
-                      onChange={this.onChange}
-                      name="name"
-                      autoComplete="name"
-                    />
-                  </FormControl>
-                  <FormControl margin="normal" required fullWidth>
-                    <InputLabel htmlFor="password">Password</InputLabel>
-                    <Input
-                      name="password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                      value={this.state.password}
-                      onChange={this.onChange}
-                    />
-                  </FormControl>
-
-                  <div className={classes.actions}>
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="raised"
-                      color="primary"
+              <Card className={classes.card}>
+                <AppBar position="static">
+                  <Toolbar>
+                    <Typography
+                      variant="title"
+                      color="inherit"
+                      className={classes.grow}
                     >
-                      Register
-                    </Button>
+                      Login/Register
+                    </Typography>
+                    <div>
+                      <IconButton onClick={handleClose} color="inherit">
+                        <Close />
+                      </IconButton>
+                    </div>
+                  </Toolbar>
+                </AppBar>
+                <Tabs
+                  value={this.state.tab}
+                  onChange={this.handleTabChange}
+                  indicatorColor="primary"
+                  textColor="primary"
+                  fullWidth
+                >
+                  <Tab label="Register" />
+                  <Tab label="Login" />
+                </Tabs>
+                {/* ********** Tab Contents ********* */}
+                {this.state.tab === 0 && (
+                  <div className={classes.root}>
+                    <div className={classes.root}>
+                      {/* ********** Start of Register Form ******** */}
+                      <form
+                        className={classes.form}
+                        onSubmit={this.handleSubmit(value.onSubmit)}
+                      >
+                        <FormControl margin="normal" required fullWidth>
+                          <InputLabel htmlFor="name">Display Name</InputLabel>
+
+                          <Input
+                            id="name"
+                            value={this.state.name}
+                            onChange={this.onChange}
+                            name="name"
+                            autoComplete="name"
+                            endAdornment={
+                              <InputAdornment position="end">
+                                <Autorenew
+                                  onClick={this.newPizzaName}
+                                  style={{ cursor: "pointer" }}
+                                />
+                              </InputAdornment>
+                            }
+                          />
+                        </FormControl>
+                        <FormControl margin="normal" required fullWidth>
+                          <InputLabel htmlFor="email">Email Address</InputLabel>
+                          <Input
+                            id="email"
+                            value={this.state.email}
+                            onChange={this.onChange}
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
+                          />
+                        </FormControl>
+
+                        <FormControl margin="normal" required fullWidth>
+                          <InputLabel htmlFor="password">Password</InputLabel>
+                          <Input
+                            name="password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            value={this.state.password}
+                            onChange={this.onChange}
+                          />
+                        </FormControl>
+
+                        <div className={classes.actions}>
+                          <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                          >
+                            Register
+                          </Button>
+                        </div>
+                      </form>
+                    </div>
                   </div>
-                </form>
-              </div>
+                )}
+                {/* ********** Start Of Login Tab ********* */}
+                {this.state.tab === 1 && (
+                  <div className={classes.root}>
+                    <form
+                      className={classes.form}
+                      onSubmit={this.handleSubmit(value.onSubmit)}
+                    >
+                      <FormControl margin="normal" required fullWidth>
+                        <InputLabel htmlFor="email">Email Address</InputLabel>
+                        <Input
+                          id="email"
+                          value={this.state.email}
+                          onChange={this.onChange}
+                          name="email"
+                          autoComplete="email"
+                          autoFocus
+                        />
+                      </FormControl>
+                      <FormControl margin="normal" required fullWidth>
+                        <InputLabel htmlFor="password">Password</InputLabel>
+                        <Input
+                          name="password"
+                          type="password"
+                          id="password"
+                          autoComplete="current-password"
+                          value={this.state.password}
+                          onChange={this.onChange}
+                        />
+                      </FormControl>
+
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                      >
+                        Sign in
+                      </Button>
+                    </form>
+                    {/* ********** End of Login Form ******** */}
+                  </div>
+                )}
+                <div className={classes.or}>or</div>
+                <div className={classes.form}>
+                  <Button
+                    className={classes.button}
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => value.authExternal("Github")}
+                  >
+                    Log in with Github
+                  </Button>
+                  <Button
+                    className={classes.button}
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => value.authExternal("Google")}
+                  >
+                    Log in with Google
+                  </Button>
+                </div>
+              </Card>
             </div>
-          )}
-          <div className={classes.or}>or</div>
-          <div className={classes.form}>
-            <Button
-              className={classes.button}
-              variant="contained"
-              color="secondary"
-              onClick={() => authenticate("Github")}
-            >
-              Log in with Github
-            </Button>
-            <Button
-              className={classes.button}
-              variant="contained"
-              color="secondary"
-              onClick={() => authenticate("Google")}
-            >
-              Log in with Google
-            </Button>
-          </div>
-        </Card>
-      </div>
+          );
+        }}
+      </Consumer>
     );
   }
 

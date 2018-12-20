@@ -1,19 +1,21 @@
+import firebase from "firebase/app";
+import "firebase/database";
 import Rebase from "re-base";
-import firebase from "firebase";
 
-const firebaseApp = firebase.initializeApp({
+const config = {
   apiKey: "AIzaSyDV-BtnDwHdQQamxsg5-USBbRuhRFM4Ji4",
   authDomain: "pizza-love.firebaseapp.com",
   databaseURL: "https://pizza-love.firebaseio.com",
   projectId: "pizza-love",
   storageBucket: "pizza-love.appspot.com",
   messagingSenderId: "778836917849"
-});
+};
 
-const base = Rebase.createClass(firebaseApp.database());
+const firebaseApp = firebase.initializeApp(config);
 
 // Named Export
 export { firebaseApp };
 
 //Main export
-export default base;
+
+export default Rebase.createClass(firebaseApp.database());
