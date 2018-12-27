@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, Paper } from "@material-ui/core";
 import ResChart from "./Chart";
 import { Consumer } from "../../context";
 
@@ -19,12 +19,12 @@ export class Results extends Component {
           const sortedResults = this.sortResults(Object.values(users));
           const topLover = sortedResults[0];
           return (
-            <div>
+            <Paper>
               <Typography variant="h4" align="center" gutterBottom>
                 Nobody loves pizza more than {topLover ? topLover.name : "..."}
               </Typography>
-              <ResChart results={sortedResults} />
-            </div>
+              <ResChart results={sortedResults.slice(0, 10)} />
+            </Paper>
           );
         }}
       </Consumer>

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import base, { firebaseApp } from "./base";
 import firebase from "firebase";
 
+import { getAvatar } from "./helpers";
+
 const Context = React.createContext();
 
 export class Provider extends Component {
@@ -59,16 +61,16 @@ export class Provider extends Component {
     }
   };
 
-  authHandler = name => authData => {
-    console.log(name, authData.user.uid);
-
-    const { uid, displayName = "test" } = authData.user;
+  authHandler = name => async authData => {
+    const { uid, displayName = "test", email } = authData.user;
     const users = { ...this.state.users };
 
     if (!users[`${uid}`]) {
+      const avatar = await getAvatar(email);
       users[`${uid}`] = {
         name: name || displayName || "test",
-        votes: 1
+        votes: 1,
+        avatar: avatar
       };
     }
 
@@ -88,10 +90,6 @@ export class Provider extends Component {
       );
   };
 
-  authLocal = state => {
-    console.log(state);
-  };
-
   logOut = async () => {
     await firebase.auth().signOut();
     this.setState({ currentUser: null });
@@ -108,26 +106,70 @@ export class Provider extends Component {
   // Dev helpers
   sampleUsers = () => {
     this.setState({
+      users: null,
+      currentUser: null
+    });
+    console.log(this.state);
+    this.setState({
       users: {
-        qP7WI0zUQMaMpnXm4zSXRGKOx7y2: {
+        Dummy1: {
           name: "James",
-          votes: 3
+          votes: 3,
+          avatar: "/images/barbacoa_del.png"
         },
-        I4MjgvBP7VfVO8ne3pBCXeEViyU2: {
+        Dummy2: {
           name: "Tanya",
-          votes: 2
+          votes: 2,
+          avatar: "/images/carbonara_del.png"
         },
-        Ctc4JznO87U5kxUYBY9MH9DYIQl2: {
+        Dummy3: {
           name: "Leia",
-          votes: 2
+          votes: 7,
+          avatar: "/images/caribena_del.png"
+        },
+        Dummy4: {
+          name: "Robert",
+          votes: 3,
+          avatar: "/images/carne_lovers_del.png"
+        },
+        Dummy5: {
+          name: "Caroline",
+          votes: 5,
+          avatar: "/images/hawaiana_del.png"
+        },
+        Dummy6: {
+          name: "Tansly",
+          votes: 2,
+          avatar: "/images/kebab_lovers_del.png"
+        },
+        Dummy7: {
+          name: "Chilli",
+          votes: 6,
+          avatar: "/images/margarita_del.png"
+        },
+        Dummy8: {
+          name: "Victoria",
+          votes: 1,
+          avatar: "/images/marinera_del.png"
+        },
+        Dummy9: {
+          name: "Jake",
+          votes: 3,
+          avatar: "/images/peperoni_lovers_del.png"
+        },
+        Dummy10: {
+          name: "Amelia",
+          votes: 2,
+          avatar: "/images/pollo_parrilla_del.png"
+        },
+        Dummy11: {
+          name: "Mini",
+          votes: 2,
+          avatar: "/images/queso_de_cabra_del.png"
         }
       }
     });
     console.log("Loaded Sample Users");
-  };
-
-  logThis = msg => {
-    console.log(msg);
   };
 
   render() {
