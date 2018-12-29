@@ -61,8 +61,8 @@ class LoginRegister extends Component {
 
     this.state = {
       tab: 0,
-      email: "state@login.js",
-      password: "123456",
+      email: "",
+      password: "",
       name: getPizzaName()
     };
   }

@@ -8,14 +8,7 @@ import { Typography } from "@material-ui/core";
 
 const styles = theme => ({
   modal: {
-    position: "absolute",
-    width: theme.spacing.unit * 50,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4,
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)"
+    top: "10%"
   }
 });
 
@@ -47,7 +40,7 @@ class LoginModal extends React.Component {
     return (
       <Consumer>
         {value => {
-          const { authenticate } = this.props;
+          const { authenticate, classes } = this.props;
           return (
             <React.Fragment>
               <Typography variant="title" gutterBottom>
@@ -77,6 +70,7 @@ class LoginModal extends React.Component {
                 aria-describedby="simple-modal-description"
                 open={this.state.open}
                 onClose={this.handleClose}
+                className={classes.modal}
               >
                 <LoginRegister
                   authenticate={authenticate}
