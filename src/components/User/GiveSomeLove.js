@@ -1,21 +1,54 @@
 import React, { Component } from "react";
-import Button from "@material-ui/core/Button";
+import {
+  Button,
+  Typography,
+  Divider,
+  Grid,
+  Avatar,
+  ListItem,
+  ListItemText
+} from "@material-ui/core";
 
 class GiveSomeLove extends Component {
   render() {
-    const { addSomeLove } = this.props;
+    const { addSomeLove, logOut, name, avatar } = this.props;
     return (
-      <div style={{ display: "flex" }}>
+      <React.Fragment>
+        <Typography variant="title" gutterBottom>
+          Smash that button
+        </Typography>
+        <br />
         <Button
           variant="contained"
           color="primary"
-          style={{ justifyContent: "center" }}
           fullWidth={true}
           onClick={addSomeLove}
         >
-          Give Some Love
+          I love it
         </Button>
-      </div>
+        <Divider variant="middle" style={{ margin: 10 }} />
+        <Grid
+          justify="space-between"
+          container
+          spacing={24}
+          alignItems="center"
+        >
+          <Grid item>
+            <ListItem>
+              <Avatar src={avatar} />
+              <ListItemText primary={`Hi ${name}`} />
+            </ListItem>
+          </Grid>
+
+          <Grid item>
+            <div>
+              <Button variant="outlined" color="secondary" onClick={logOut}>
+                Log Out
+              </Button>
+            </div>
+          </Grid>
+        </Grid>
+      </React.Fragment>
     );
   }
 }

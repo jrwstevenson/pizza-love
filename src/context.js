@@ -25,11 +25,17 @@ export class Provider extends Component {
     // Check if they have logged in before
     const localStorageUser = localStorage.getItem("pizza-love");
     if (localStorageUser) {
-      const user = JSON.parse(localStorageUser);
-      this.setState({ currentUser: user });
+      this.setState({ currentUser: localStorageUser });
       console.log("User Loaded from Local Storage");
     }
   }
+
+  sortResults = results => {
+    const sorted = results.sort(
+      (a, b) => parseFloat(b.votes) - parseFloat(a.votes)
+    );
+    return sorted;
+  };
 
   // User methods
 
@@ -70,11 +76,14 @@ export class Provider extends Component {
       users[`${uid}`] = {
         name: name || displayName || "test",
         votes: 1,
-        avatar: avatar
+        avatar: avatar,
+        uid: uid
       };
     }
 
     this.setState({ users, currentUser: uid });
+
+    localStorage.setItem("pizza-love", uid);
   };
 
   authExternal = provider => {
@@ -93,6 +102,7 @@ export class Provider extends Component {
   logOut = async () => {
     await firebase.auth().signOut();
     this.setState({ currentUser: null });
+    localStorage.removeItem("pizza-love");
     console.log("Logged out");
   };
 
@@ -173,9 +183,11 @@ export class Provider extends Component {
   };
 
   render() {
+    const sortedResults = this.sortResults(Object.values(this.state.users));
     return (
       <Context.Provider
         value={{
+          sortedResults: sortedResults,
           state: this.state,
           logThis: this.logThis,
           sampleUsers: this.sampleUsers,

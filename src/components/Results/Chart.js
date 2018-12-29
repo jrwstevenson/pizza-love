@@ -1,5 +1,4 @@
 import * as React from "react";
-import Paper from "@material-ui/core/Paper";
 import { Scale, Animation } from "@devexpress/dx-react-chart";
 import {
   Chart,
@@ -30,9 +29,9 @@ const BarWithLabel = props => {
         y={(y + y1) / 2}
         dominantBaseline="middle"
         textAnchor="middle"
-        style={{ fill: "#BBDEFB", fontSize: "14" }}
+        style={{ fill: "#BBDEFB", fontSize: "18" }}
       >
-        {value} Votes
+        {value}
       </Chart.Label>
     </React.Fragment>
   );

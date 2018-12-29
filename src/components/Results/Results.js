@@ -1,28 +1,32 @@
 import React, { Component } from "react";
-import { Typography, Paper } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import ResChart from "./Chart";
 import { Consumer } from "../../context";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    padding: 20,
+    margin: "auto",
+    maxWidth: 958
+  },
+  control: {
+    padding: theme.spacing.unit * 2
+  }
+});
 
 export class Results extends Component {
-  sortResults = results => {
-    const sorted = results.sort(
-      (a, b) => parseFloat(b.votes) - parseFloat(a.votes)
-    );
-    return sorted;
-  };
-
   render() {
+    const { classes } = this.props;
     return (
       <Consumer>
         {value => {
-          const { users } = value.state;
-          const sortedResults = this.sortResults(Object.values(users));
-          const topLover = sortedResults[0];
+          const { sortedResults } = value;
           return (
-            <Paper>
-              <Typography variant="h4" align="center" gutterBottom>
-                Nobody loves pizza more than {topLover ? topLover.name : "..."}
-              </Typography>
+            <Paper className={classes.paper}>
               <ResChart results={sortedResults.slice(0, 10)} />
             </Paper>
           );
@@ -32,4 +36,4 @@ export class Results extends Component {
   }
 }
 
-export default Results;
+export default withStyles(styles)(Results);

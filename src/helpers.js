@@ -91,3 +91,72 @@ export const randomPizzaImage = () => {
 
   return `/images/${images[Math.floor(Math.random() * images.length)]}`;
 };
+
+// Dev helpers
+export const sampleUsers = () => {
+  this.setState({
+    users: null,
+    currentUser: null
+  });
+  console.log(this.state);
+  this.setState({
+    users: {
+      Dummy1: {
+        name: "James",
+        votes: 3,
+        avatar: "/images/barbacoa_del.png"
+      },
+      Dummy2: {
+        name: "Tanya",
+        votes: 2,
+        avatar: "/images/carbonara_del.png"
+      },
+      Dummy3: {
+        name: "Leia",
+        votes: 7,
+        avatar: "/images/caribena_del.png"
+      },
+      Dummy4: {
+        name: "Robert",
+        votes: 3,
+        avatar: "/images/carne_lovers_del.png"
+      },
+      Dummy5: {
+        name: "Caroline",
+        votes: 5,
+        avatar: "/images/hawaiana_del.png"
+      },
+      Dummy6: {
+        name: "Tansly",
+        votes: 2,
+        avatar: "/images/kebab_lovers_del.png"
+      },
+      Dummy7: {
+        name: "Chilli",
+        votes: 6,
+        avatar: "/images/margarita_del.png"
+      },
+      Dummy8: {
+        name: "Victoria",
+        votes: 1,
+        avatar: "/images/marinera_del.png"
+      },
+      Dummy9: {
+        name: "Jake",
+        votes: 3,
+        avatar: "/images/peperoni_lovers_del.png"
+      },
+      Dummy10: {
+        name: "Amelia",
+        votes: 2,
+        avatar: "/images/pollo_parrilla_del.png"
+      },
+      Dummy11: {
+        name: "Mini",
+        votes: 2,
+        avatar: "/images/queso_de_cabra_del.png"
+      }
+    }
+  });
+  console.log("Loaded Sample Users");
+};

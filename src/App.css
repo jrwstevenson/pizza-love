@@ -2,3 +2,30 @@ body {
   font-family: Roboto;
   background-color: #eeeeee;
 }
+
+#center {
+  width: 250px;
+  height: 70px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-shadow: 0px 3px 2px #000000;
+}
+
+.title {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 7rem;
+  font-weight: 300;
+  font-family: "Damion";
+}
+
+.heart {
+  height: 120px;
+  position: relative;
+  top: 17px;
+  /* margin-left: 10px; */
+  margin: 0 20px 0 20px;
+}

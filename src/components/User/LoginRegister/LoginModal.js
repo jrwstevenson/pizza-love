@@ -4,6 +4,7 @@ import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
 import LoginRegister from "./LoginRegister";
 import { Consumer } from "../../../context";
+import { Typography } from "@material-ui/core";
 
 const styles = theme => ({
   modal: {
@@ -49,18 +50,27 @@ class LoginModal extends React.Component {
           const { authenticate } = this.props;
           return (
             <React.Fragment>
+              <Typography variant="title" gutterBottom>
+                <span role="img" aria-label="Pizza">
+                  🍕😍
+                </span>
+                Show Your Love For Pizza!{" "}
+                <span role="img" aria-label="Pizza">
+                  🍕😍
+                </span>
+              </Typography>
+              <br />
+              <Typography variant="subheading" gutterBottom>
+                Login to show the world how much you love pizza
+              </Typography>
+              <br />
               <Button
                 variant="contained"
                 color="secondary"
                 onClick={this.handleOpen}
+                fullWidth={true}
               >
-                <span role="img" aria-label="Pizza">
-                  🍕😍
-                </span>
-                Show You Love For Pizza!{" "}
-                <span role="img" aria-label="Pizza">
-                  🍕😍
-                </span>
+                Login
               </Button>
               <Modal
                 aria-labelledby="simple-modal-title"
