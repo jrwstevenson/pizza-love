@@ -17,6 +17,7 @@ import {
 import { Autorenew, Close } from "@material-ui/icons";
 import { Consumer } from "../../../context";
 import { getPizzaName } from "../../../helpers";
+import Notify from "../../Notify";
 
 const styles = theme => ({
   root: {
@@ -85,6 +86,7 @@ class LoginRegister extends Component {
       <Consumer>
         {value => {
           const { classes, handleClose } = this.props;
+          const { errors } = value.state;
           return (
             <div className={classes.root}>
               <Card className={classes.card}>
@@ -104,6 +106,12 @@ class LoginRegister extends Component {
                     </div>
                   </Toolbar>
                 </AppBar>
+                {errors
+                  ? errors.map((error, idx) => (
+                      <Notify message={error} key={idx} />
+                    ))
+                  : null}
+
                 <Tabs
                   value={this.state.tab}
                   onChange={this.handleTabChange}

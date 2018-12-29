@@ -11,7 +11,7 @@ export class Provider extends Component {
     users: {},
     currentUser: null,
     text: "",
-    errors: null
+    errors: []
   };
 
   // Preload some data to kick things off
@@ -49,9 +49,9 @@ export class Provider extends Component {
         .createUserWithEmailAndPassword(email, password)
         .then(this.authHandler(name))
         .catch(err =>
-          this.setState({
-            errors: err.message
-          })
+          this.setState(prevState => ({
+            errors: [...prevState.errors, err.message]
+          }))
         );
     } else if (tab === 1) {
       console.log("Login");
@@ -60,9 +60,9 @@ export class Provider extends Component {
         .signInWithEmailAndPassword(email, password)
         .then(this.authHandler(null))
         .catch(err =>
-          this.setState({
-            errors: err.message
-          })
+          this.setState(prevState => ({
+            errors: [...prevState.errors, err.message]
+          }))
         );
     }
   };
@@ -93,9 +93,9 @@ export class Provider extends Component {
       .signInWithPopup(authProvider)
       .then(this.authHandler(null))
       .catch(err =>
-        this.setState({
-          errors: err.message
-        })
+        this.setState(prevState => ({
+          errors: [...prevState.errors, err.message]
+        }))
       );
   };
 
