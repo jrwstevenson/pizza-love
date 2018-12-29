@@ -1,8 +1,8 @@
 import React, { Component } from "react";
+import Info from "./Info";
 import GiveSomeLove from "./GiveSomeLove";
 import LoginModal from "./LoginRegister/LoginModal";
 import { Consumer } from "../../context";
-import Info from "./Info";
 import { Paper, Grid, withStyles } from "@material-ui/core";
 
 const styles = theme => ({
@@ -22,14 +22,6 @@ const styles = theme => ({
 });
 
 export class User extends Component {
-  state = {
-    email: null,
-    name: null,
-    errors: null
-  };
-
-  componentDidMount() {}
-
   render() {
     const { classes } = this.props;
     return (
@@ -37,8 +29,10 @@ export class User extends Component {
         {value => {
           const { addSomeLove, logOut, sortedResults } = value;
           const { currentUser, users } = value.state;
+          // Get User from currentUser id
           const thisUser = users[currentUser];
-          const thisPosition =
+          // Calc user position
+          const currentPosition =
             sortedResults
               .map(e => {
                 return e.uid;
@@ -53,7 +47,6 @@ export class User extends Component {
               logOut={logOut}
               name={thisUser ? thisUser.name : "..."}
               avatar={thisUser ? thisUser.avatar : null}
-              position={thisPosition}
             />
           ) : (
             // No, show Login/Register
@@ -73,7 +66,7 @@ export class User extends Component {
                     <Grid item>
                       <Paper className={classes.paper}>
                         <Info
-                          position={thisPosition}
+                          position={currentPosition}
                           votes={thisUser ? thisUser.votes : "Please Login"}
                         />
                       </Paper>

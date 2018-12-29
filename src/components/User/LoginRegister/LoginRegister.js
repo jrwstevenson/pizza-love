@@ -68,6 +68,7 @@ class LoginRegister extends Component {
     };
   }
 
+  // Generate new name
   newPizzaName = () => {
     this.setState({
       name: getPizzaName()
@@ -79,6 +80,10 @@ class LoginRegister extends Component {
   handleSubmit = onSubmit => e => {
     e.preventDefault();
     onSubmit(this.state);
+  };
+
+  handleTabChange = (event, value) => {
+    this.setState({ tab: value });
   };
 
   render() {
@@ -258,10 +263,6 @@ class LoginRegister extends Component {
       </Consumer>
     );
   }
-
-  handleTabChange = (event, value) => {
-    this.setState({ tab: value });
-  };
 }
 
 export default withStyles(styles)(LoginRegister);

@@ -7,6 +7,7 @@ import {
   Divider
 } from "@material-ui/core";
 import { Consumer } from "../../context";
+import PropTypes from "prop-types";
 
 const getOrdinal = n => {
   var s = ["th", "st", "nd", "rd"],
@@ -76,5 +77,10 @@ export class Results extends Component {
     );
   }
 }
+
+Results.propTypes = {
+  positions: PropTypes.number,
+  vote: PropTypes.number
+};
 
 export default Results;

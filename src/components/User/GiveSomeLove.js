@@ -8,6 +8,7 @@ import {
   ListItem,
   ListItemText
 } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 class GiveSomeLove extends Component {
   render() {
@@ -52,5 +53,12 @@ class GiveSomeLove extends Component {
     );
   }
 }
+
+GiveSomeLove.propTypes = {
+  addSomeLove: PropTypes.func.isRequired,
+  logOut: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  avatar: PropTypes.string
+};
 
 export default GiveSomeLove;
