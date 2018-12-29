@@ -3,7 +3,6 @@ import { Scale, Animation } from "@devexpress/dx-react-chart";
 import {
   Chart,
   ArgumentAxis,
-  ValueAxis,
   BarSeries,
   Title
 } from "@devexpress/dx-react-chart-material-ui";
@@ -13,9 +12,9 @@ const labelOffset = 10;
 
 const getPath = (x, width, y, y1) => `M ${x} ${y1}
    L ${width + x} ${y1}
-   L ${width + x} ${y + 5}
+   L ${width + x} ${y}
    L ${x + width / 2} ${y}
-   L ${x} ${y + 5}
+   L ${x} ${y}
    Z`;
 
 const BarWithLabel = props => {
@@ -67,7 +66,6 @@ export default class ResChart extends React.PureComponent {
               labelComponent={this.customLabels}
               showTick={false}
             />
-            <ValueAxis />
 
             <BarSeries
               valueField="votes"
