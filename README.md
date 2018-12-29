@@ -1,9 +1,13 @@
-This is a small project built to help people show their love for Pizza
+# Pizza Love
+
+[View demo here](https://pizza-love.james-stevenson.com/)
+
+This is a small project built to help people show their love for Pizza.
 
 I have used [Create React App](https://github.com/facebook/create-react-app),
 [Firebase](https://firebase.google.com/)
 and
-[Material-UI](https://material-ui.com/) (👈🏼 My new favorite library)
+[Material-UI](https://material-ui.com/) (👈🏼 My new favorite library).
 
 No redux needed for a project of this scale when the [Context API](https://reactjs.org/docs/context.html) is more than capable.
 
