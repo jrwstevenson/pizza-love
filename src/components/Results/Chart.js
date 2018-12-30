@@ -37,10 +37,15 @@ const BarWithLabel = props => {
 };
 
 export default class ResChart extends React.PureComponent {
-  customLabels = props => {
+  customLabels = chartData => props => {
     const { text, x, y } = props;
     const { results } = this.props;
-    const user = results.find(({ name }) => name === text);
+    let user = results.find(({ uid }) => uid === text);
+    user = {
+      ...props,
+      text: user.name,
+      avatar: user.avatar
+    };
     return (
       <React.Fragment>
         <image
@@ -49,7 +54,7 @@ export default class ResChart extends React.PureComponent {
           height={imageSize}
           transform={`translate(${x - imageSize / 2} ${y - labelOffset})`}
         />
-        <ArgumentAxis.Label {...props} y={y + imageSize} />
+        <ArgumentAxis.Label {...user} y={y + imageSize} />
       </React.Fragment>
     );
   };
@@ -63,13 +68,13 @@ export default class ResChart extends React.PureComponent {
           <Chart data={chartData}>
             <ArgumentAxis
               type="band"
-              labelComponent={this.customLabels}
+              labelComponent={this.customLabels(chartData)}
               showTick={false}
             />
 
             <BarSeries
               valueField="votes"
-              argumentField="name"
+              argumentField="uid"
               pointComponent={BarWithLabel}
             />
             <Title text="Top 10 Pizza Lovers!" />
